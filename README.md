@@ -58,6 +58,14 @@ i przypnij go pinezką, żeby mieć zawsze pod ręką.
 4. Kliknij **Testuj połączenie** — wtyczka przetłumaczy jedno słowo i napisze, czy wszystko
    gra.
 
+<p align="center">
+  <img src="screenshot.png" alt="Ekran Opcji wtyczki: wybór modelu, pole na klucz, statystyki i pamięć tłumaczeń" width="440">
+</p>
+
+Tak wygląda ekran **Opcji**. Pod polem na klucz znajdziesz jeszcze listę serwisów
+tłumaczonych automatycznie oraz statystyki — ile tekstu przyszło z pamięci, a ile trzeba
+było wysłać.
+
 To wszystko. Klucz wpisujesz raz.
 
 **Model** (czyli to, która wersja sztucznej inteligencji tłumaczy) możesz zostawić bez
