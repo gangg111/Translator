@@ -11,13 +11,13 @@ Działa w przeglądarkach **Microsoft Edge** i **Google Chrome**.
 
 ---
 
-## Zanim zaczniesz — potrzebujesz klucza OpenAI
+## Zanim zaczniesz potrzebujesz klucza OpenAI
 
 Tłumaczy sztuczna inteligencja od OpenAI (ta sama firma, co ChatGPT). Żeby wtyczka mogła
 z niej korzystać, potrzebuje Twojego **klucza** — to taki długi ciąg znaków, który łączy
 wtyczkę z Twoim kontem OpenAI.
 
-**Można tłumaczyć za darmo** — OpenAI codziennie przydziela darmową pulę tłumaczeń, jeśli
+**Można tłumaczyć za darmo** - OpenAI codziennie przydziela darmową pulę tłumaczeń, jeśli
 w ustawieniach konta zgodzisz się na udostępnianie danych (patrz sekcja
 [„Ile to kosztuje"](#ile-to-kosztuje) niżej). Jak zdobyć klucz:
 
@@ -53,7 +53,7 @@ i przypnij go pinezką, żeby mieć zawsze pod ręką.
 
 ---
 
-## Pierwsze uruchomienie — wklej klucz
+## Pierwsze uruchomienie - wklej klucz
 
 1. Kliknij ikonę wtyczki **prawym** przyciskiem myszy i wybierz **Opcje**.
 2. W polu **Klucz OpenAI API** wklej skopiowany wcześniej klucz.
@@ -97,7 +97,7 @@ i jenach przelicza na złotówki po aktualnym kursie.
 
 ## Ile to kosztuje
 
-### Za darmo — darmowa pula dzienna
+### Za darmo - darmowa pula dzienna
 
 OpenAI codziennie daje **darmową pulę tłumaczeń** w zamian za zgodę na udostępnianie danych.
 Dla zwykłego przeglądania ta pula jest bardzo duża (idzie w setki tysięcy, a na starszych
