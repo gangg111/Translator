@@ -14,17 +14,20 @@ Działa w przeglądarkach **Microsoft Edge** i **Google Chrome**.
 ## Zanim zaczniesz — potrzebujesz klucza OpenAI
 
 Tłumaczy sztuczna inteligencja od OpenAI (ta sama firma, co ChatGPT). Żeby wtyczka mogła
-z niej korzystać, potrzebuje Twojego **klucza** — to taki długi ciąg znaków, który mówi
-OpenAI, kto płaci za tłumaczenie.
+z niej korzystać, potrzebuje Twojego **klucza** — to taki długi ciąg znaków, który łączy
+wtyczkę z Twoim kontem OpenAI.
 
-To płatna usługa, ale rozliczana za faktyczne użycie — nie ma abonamentu. Jak zdobyć klucz:
+**Można tłumaczyć za darmo** — OpenAI codziennie przydziela darmową pulę tłumaczeń, jeśli
+w ustawieniach konta zgodzisz się na udostępnianie danych (patrz sekcja
+[„Ile to kosztuje"](#ile-to-kosztuje) niżej). Jak zdobyć klucz:
 
 1. Wejdź na **[platform.openai.com](https://platform.openai.com)** i załóż konto
    (albo zaloguj się kontem ChatGPT, jeśli już je masz).
-2. Doładuj konto dowolną kwotą w zakładce **Billing** — bez tego klucz nie zadziała.
-3. Wejdź na **[stronę z kluczami](https://platform.openai.com/api-keys)** i kliknij
+2. Wejdź na **[stronę z kluczami](https://platform.openai.com/api-keys)** i kliknij
    **Create new secret key**.
-4. Skopiuj klucz i zachowaj go na chwilę — wkleisz go po instalacji.
+3. Skopiuj klucz i zachowaj go na chwilę — wkleisz go po instalacji.
+4. Żeby tłumaczyć **za darmo**, włącz darmową pulę dzienną — jak to zrobić, opisuje sekcja
+   [„Ile to kosztuje"](#ile-to-kosztuje).
 
 > Klucz pokazuje się **tylko raz**. Jeśli go zgubisz, po prostu utwórz nowy.
 
@@ -94,8 +97,32 @@ i jenach przelicza na złotówki po aktualnym kursie.
 
 ## Ile to kosztuje
 
-Płacisz OpenAI za ilość przetłumaczonego tekstu — aktualne stawki znajdziesz
-[w cenniku OpenAI](https://openai.com/api/pricing/). Wtyczka jest zrobiona tak, żeby wysyłać
+### Za darmo — darmowa pula dzienna
+
+OpenAI codziennie daje **darmową pulę tłumaczeń** w zamian za zgodę na udostępnianie danych.
+Dla zwykłego przeglądania ta pula jest bardzo duża (idzie w setki tysięcy, a na starszych
+kontach w miliony fragmentów tekstu dziennie) i odnawia się każdego dnia — w praktyce
+tłumaczysz bez płacenia ani grosza.
+
+Żeby ją włączyć:
+
+1. Wejdź na **[platform.openai.com](https://platform.openai.com)** i zaloguj się.
+2. Otwórz **Settings → Data controls** (Ustawienia → Kontrola danych).
+3. Włącz udostępnianie danych (opcja o nazwie w rodzaju *„share prompts and completions"* /
+   *„Enable data sharing"*).
+
+**Haczyk, o którym trzeba wiedzieć:** przy tej opcji tekst tłumaczonych stron **może być
+używany przez OpenAI do ulepszania (trenowania) ich sztucznej inteligencji**. Zgodę można
+w każdej chwili cofnąć w tym samym miejscu. Więcej o tym w sekcji
+[Prywatność](#co-warto-wiedzieć-o-prywatności) niżej.
+
+> Aktywacja konta może wymagać jednorazowego, drobnego doładowania (rzędu kilku dolarów)
+> w zakładce **Billing** — potem codzienna pula pozostaje darmowa.
+
+### Jeśli nie włączysz darmowej puli (albo ją wyczerpiesz)
+
+Wtedy OpenAI liczy opłatę za ilość przetłumaczonego tekstu według
+[cennika](https://openai.com/api/pricing/). Wtyczka i tak jest zrobiona tak, żeby wysyłać
 jak najmniej:
 
 - **Zapamiętuje tłumaczenia.** Menu, stopka i powtarzające się zwroty są tłumaczone raz,
@@ -114,8 +141,13 @@ a ile trzeba było wysłać.
 - Tekst tłumaczonych stron **jest wysyłany do OpenAI** — inaczej nie dałoby się go
   przetłumaczyć. Dlatego **nie używaj wtyczki na stronach z wrażliwymi treściami**:
   w banku, w poczcie, w dokumentach firmowych czy medycznych.
+- Jeśli korzystasz z **darmowej puli dziennej**, tekst tłumaczonych stron **może posłużyć
+  OpenAI do trenowania ich sztucznej inteligencji** — to warunek darmowego tłumaczenia.
+  Tym bardziej trzymaj z dala od wtyczki treści, których nie chcesz nikomu udostępniać.
+  Zgodę można wyłączyć w ustawieniach konta OpenAI (**Data controls**); wtedy tłumaczenie
+  jest płatne, ale tekst nie jest używany do trenowania.
 - Twój klucz i zapamiętane tłumaczenia zostają **na Twoim komputerze**.
-- Wtyczka nie ma własnego serwera i nie zbiera o Tobie żadnych danych.
+- Sama wtyczka nie ma własnego serwera i nie zbiera o Tobie żadnych danych.
 
 ---
 
