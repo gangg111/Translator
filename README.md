@@ -1,4 +1,4 @@
-# Tłumacz — cała strona po polsku, jednym kliknięciem
+# Tłumacz - cała domena po polsku, jednym kliknięciem
 
 Wchodzisz na zagraniczną stronę, klikasz ikonę — i strona jest po polsku. Wygląda tak samo
 jak wcześniej, tylko tekst jest przetłumaczony. Żadnych okienek obok, żadnego kopiowania
