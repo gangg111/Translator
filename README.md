@@ -43,7 +43,7 @@ Dalej masz dwie drogi - wybierz jedną.
 ### Sposób A - plik `.crx` (paczka, tylko Edge)
 
 Instalujesz gotową paczkę `tlumacz-pl.crx`. Edge domyślnie nie ufa wtyczkom spoza swojego
-sklepu, więc najpierw trzeba mu jednorazowo na nią pozwolić - robi to dołączony plik.
+sklepu, więc najpierw trzeba mu jednorazowo na nią pozwolić - robi to dołączony plik **`Dodanie_wtyczki_to_whitelist.cmd`**.
 
 1. W rozpakowanym folderze uruchom **`Dodanie wtyczki to whitelist.cmd`** (podwójne
    kliknięcie) i potwierdź pytanie systemu Windows o uprawnienia. To jednorazowo pozwala
