@@ -1,149 +1,169 @@
-# Tłumacz — tłumaczenie całych domen jednym kliknięciem
+# Tłumacz — cała strona po polsku, jednym kliknięciem
 
-Wtyczka do przeglądarek opartych na Chromium (Edge, Chrome), która **tłumaczy widoczny tekst
-strony na polski i podmienia go w miejscu**. Bez paneli, bez ramek obok, bez otwierania
-tłumacza w nowej karcie — czytasz tę samą stronę, tylko po polsku.
+Wchodzisz na zagraniczną stronę, klikasz ikonę — i strona jest po polsku. Wygląda tak samo
+jak wcześniej, tylko tekst jest przetłumaczony. Żadnych okienek obok, żadnego kopiowania
+i wklejania do tłumacza.
 
-Jedno kliknięcie ikony włącza tłumaczenie **całej domeny**: bieżąca strona tłumaczy się od
-razu, a każda kolejna podstrona tego serwisu robi to sama, gdy tylko na nią wejdziesz.
+Jedno kliknięcie wystarcza na **cały serwis**. Jeśli włączysz tłumaczenie na stronie
+głównej, każda kolejna podstrona tego serwisu też przetłumaczy się sama.
 
-- **Brak serwera pośredniczącego** — wtyczka woła OpenAI wprost z przeglądarki. Nic nie
-  przechodzi przez cudzy backend.
-- **Własny klucz OpenAI** — płacisz tylko za to, co faktycznie przetłumaczysz.
-- **Pamięć tłumaczeń** — powtarzające się fragmenty (nawigacja, stopka, terminologia) nie są
-  wysyłane po raz drugi.
+Działa w przeglądarkach **Microsoft Edge** i **Google Chrome**.
 
-Wersja **2.9.0** · manifest V3 · testowane na Microsoft Edge.
+---
+
+## Zanim zaczniesz — potrzebujesz klucza OpenAI
+
+Tłumaczy sztuczna inteligencja od OpenAI (ta sama firma, co ChatGPT). Żeby wtyczka mogła
+z niej korzystać, potrzebuje Twojego **klucza** — to taki długi ciąg znaków, który mówi
+OpenAI, kto płaci za tłumaczenie.
+
+To płatna usługa, ale rozliczana za faktyczne użycie — nie ma abonamentu. Jak zdobyć klucz:
+
+1. Wejdź na **[platform.openai.com](https://platform.openai.com)** i załóż konto
+   (albo zaloguj się kontem ChatGPT, jeśli już je masz).
+2. Doładuj konto dowolną kwotą w zakładce **Billing** — bez tego klucz nie zadziała.
+3. Wejdź na **[stronę z kluczami](https://platform.openai.com/api-keys)** i kliknij
+   **Create new secret key**.
+4. Skopiuj klucz i zachowaj go na chwilę — wkleisz go po instalacji.
+
+> Klucz pokazuje się **tylko raz**. Jeśli go zgubisz, po prostu utwórz nowy.
 
 ---
 
 ## Instalacja
 
-### Sposób 1 — katalog rozpakowany (bez uprawnień administratora)
+1. Na górze tej strony kliknij zielony przycisk **Code**, a potem **Download ZIP**.
+2. Znajdź pobrany plik i rozpakuj go (prawy klik → **Wyodrębnij wszystkie**).
+3. Otwórz przeglądarkę i wpisz w pasku adresu:
+   - Edge: `edge://extensions`
+   - Chrome: `chrome://extensions`
+4. W lewym dolnym rogu (Chrome: w prawym górnym) przestaw suwak **Tryb programisty** na
+   włączony.
+5. Kliknij **Załaduj nierozpakowane**, wejdź do rozpakowanego folderu i zaznacz folder
+   **`tlumacz-pl`**, po czym potwierdź.
 
-1. Pobierz repozytorium (**Code → Download ZIP**) i rozpakuj.
-2. Wejdź na `edge://extensions` (w Chrome: `chrome://extensions`).
-3. Włącz **Tryb programisty**.
-4. Kliknij **Załaduj nierozpakowane** i wskaż katalog **`tlumacz-pl`**.
+Gotowe — na liście pojawi się „Tłumacz". Kliknij ikonę układanki obok paska adresu
+i przypnij go pinezką, żeby mieć zawsze pod ręką.
 
-Gotowe. To najprostsza droga i nie wymaga niczego więcej.
-
-> Przy każdym starcie przeglądarka może pokazywać pasek „Wyłącz rozszerzenia w trybie
-> dewelopera" — można go zamknąć, wtyczka działa dalej.
-
-### Sposób 2 — plik `.crx` (wymaga uprawnień administratora, tylko Edge)
-
-Przeciągnięcie `.crx` na stronę rozszerzeń **zainstaluje** wtyczkę, ale Edge zostawi ją
-**wyłączoną** z komunikatem „to rozszerzenie nie pochodzi ze znanego źródła". To blokada
-rozszerzeń spoza sklepu, nie błąd paczki — zdejmuje ją wyłącznie zasada systemowa.
-
-1. Uruchom **`Dodanie wtyczki to whitelist.cmd`** (dwuklik) i potwierdź monit UAC. Skrypt
-   dopisuje identyfikator wtyczki do `ExtensionInstallAllowlist` w zasadach Edge.
-2. Zamknij **całkowicie** Edge (wszystkie okna) i uruchom go ponownie.
-3. Przeciągnij **`tlumacz-pl.crx`** na `edge://extensions` — teraz przełącznik zadziała.
-
-Cofnięcie zmiany w rejestrze:
-
-```
-reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge\ExtensionInstallAllowlist" /f
-```
-
-Po dodaniu zasady na stronie rozszerzeń pojawia się „Zarządzane przez organizację" — to
-normalny skutek uboczny. Żółty znak zapytania przy ikonie oznacza tylko „rozszerzenie spoza
-sklepu" i nie ogranicza działania.
-
-Obie drogi dają **tę samą wtyczkę** o identyfikatorze
-`gobplihcimfopmpkkmfaohagoddeaoen` (jest on przypięty kluczem podpisu w manifeście), więc
-klucz API, lista domen i pamięć tłumaczeń nie znikają przy zmianie sposobu instalacji.
+> Przy starcie przeglądarki może wyskakiwać pasek z ostrzeżeniem o trybie programisty.
+> Można go zamknąć — wtyczka działa normalnie.
 
 ---
 
-## Konfiguracja
+## Pierwsze uruchomienie — wklej klucz
 
-Prawy klik na ikonę wtyczki → **Opcje** (otwierają się w pełnej karcie).
+1. Kliknij ikonę wtyczki **prawym** przyciskiem myszy i wybierz **Opcje**.
+2. W polu **Klucz OpenAI API** wklej skopiowany wcześniej klucz.
+3. Kliknij **Zapisz**.
+4. Kliknij **Testuj połączenie** — wtyczka przetłumaczy jedno słowo i napisze, czy wszystko
+   gra.
 
-1. **Klucz OpenAI API** — wklej klucz z [platform.openai.com](https://platform.openai.com/api-keys)
-   i kliknij **Zapisz**.
-2. **Testuj połączenie** — przetłumaczy jedno słowo i potwierdzi, że klucz działa.
-3. **Model** — wybierasz klikiem z listy. Przycisk **Odśwież listę z OpenAI** pobiera modele
-   dostępne na Twoim koncie (`GET /v1/models`); lista jest odsiewana z modeli
-   nietekstowych i zapamiętywana na dobę. Domyślnie `gpt-5.4`. Pozycja **Inny model**
-   pozwala wpisać dowolny identyfikator, np. przypiętą wersję z datą.
+To wszystko. Klucz wpisujesz raz.
 
-Klucz trafia do `chrome.storage.local` — zostaje na tym urządzeniu i nie synchronizuje się
-z profilem w chmurze.
+**Model** (czyli to, która wersja sztucznej inteligencji tłumaczy) możesz zostawić bez
+zmian — ustawienie domyślne jest dobre. Jeśli kiedyś zechcesz go zmienić, kliknij
+**Odśwież listę z OpenAI** i wybierz z listy.
 
-## Użycie
+---
 
-- **Klik w ikonę** — włącza automatyczne tłumaczenie całej domeny (razem z subdomenami).
-  Kolejny klik wyłącza; żeby zobaczyć oryginał, odśwież stronę.
-- **Znaczek na ikonie** pokazuje postęp w procentach, `OK` po zakończeniu, a przy błędzie —
-  czerwone kółko z krzyżykiem; przyczyna jest w dymku po najechaniu.
-- **Opcje** zawierają listę włączonych domen (można je usuwać), statystyki użycia oraz
-  licznik i czyszczenie pamięci tłumaczeń.
+## Jak tłumaczyć
 
-## Co dokładnie robi
+**Kliknij ikonę wtyczki** na stronie, którą chcesz przeczytać po polsku.
 
-| | |
-|---|---|
-| **Podmiana w miejscu** | Zmieniane są wyłącznie węzły tekstowe i tłumaczalne atrybuty (`title`, `alt`, `placeholder`, `aria-label`). Struktura DOM zostaje nietknięta, więc strony na React/Vue się nie psują. |
-| **Treść ukryta** | Rozwijane menu, zakładki i okna modalne są tłumaczone z góry, żeby były gotowe po polsku, zanim je otworzysz. Pomijane są elementy jawnie oznaczone jako nietłumaczalne (`translate="no"`, `.notranslate`, `aria-hidden`) oraz kod (`<code>`, `<pre>`, edytory). |
-| **Strony dynamiczne** | `MutationObserver` dotłumacza treści doładowane później (lazy-load, przewijanie, zmiana widoku w SPA), także wewnątrz Shadow DOM i ramek. |
-| **Ceny w PLN** | Kwoty w `$`, `€`, `£`, `¥` są przeliczane na złotówki po aktualnym kursie EBC z [frankfurter.dev](https://frankfurter.dev) (bez klucza, kurs odświeżany co 6 h). |
-| **Dopasowanie układu** | Dłuższe polskie napisy potrafią rozbić wąskie przyciski i paski nawigacji — wtyczka zmniejsza wtedy czcionkę i odstępy tylko w tych kontrolkach, zamiast rozpychać stronę. |
-| **Spójność** | Model dostaje sąsiadujące fragmenty jako kontekst i instrukcję, by różne pojęcia miały różne polskie odpowiedniki (np. *crop* → kadruj, *trim* → przytnij). |
+- Strona przetłumaczy się w ciągu kilku sekund. Na ikonie widać postęp w procentach.
+- Od tej chwili **cały ten serwis** tłumaczy się automatycznie — wchodzisz na kolejną
+  podstronę i już jest po polsku.
+- Żeby wyłączyć, kliknij ikonę ponownie i odśwież stronę (klawisz **F5**).
 
-## Koszty i wydajność
+W **Opcjach** widzisz listę serwisów, które tłumaczą się automatycznie. Każdy możesz stamtąd
+usunąć przyciskiem **Usuń**.
 
-Płacisz OpenAI za przetłumaczony tekst — wtyczka stara się wysyłać go jak najmniej:
+Wtyczka tłumaczy też rzeczy, które nie są jeszcze widoczne — rozwijane menu, zakładki,
+okienka. Dzięki temu po ich otwarciu od razu są po polsku. Ceny w dolarach, euro, funtach
+i jenach przelicza na złotówki po aktualnym kursie.
 
-- **Pamięć tłumaczeń** (do 5000 fragmentów, wspólna dla wszystkich kart i ramek) sprawia,
-  że powtarzalne elementy serwisu lecą do modelu raz. W pomiarach na dokumentacji MDN już
-  **na trzeciej podstronie 81 %** fragmentów pochodziło z pamięci; przy odświeżeniu strony
-  i cofaniu się — komplet.
-- **Deduplikacja** w obrębie strony: identyczny tekst w wielu miejscach = jedno tłumaczenie.
-- **Paczki** ok. 2000 znaków, do 8 równolegle, z twardym limitem jednoczesnych zapytań
-  po stronie wtyczki.
-- **Tryb rozumowania** modelu jest wykrywany automatycznie i ustawiany na najtańszy, jaki
-  konto akceptuje. Bez tego modele rozumujące potrafią mielić ponad 100 s na jedną paczkę.
+---
 
-Zakładka **Statystyki** w opcjach pokazuje, ile fragmentów przyszło z pamięci, ile znaków
-poszło do OpenAI, a ile udało się zaoszczędzić.
+## Ile to kosztuje
 
-## Prywatność
+Płacisz OpenAI za ilość przetłumaczonego tekstu — aktualne stawki znajdziesz
+[w cenniku OpenAI](https://openai.com/api/pricing/). Wtyczka jest zrobiona tak, żeby wysyłać
+jak najmniej:
 
-- Tekst tłumaczonych stron jest wysyłany **do OpenAI** — nie używaj wtyczki na stronach
-  z treściami, których nie chcesz tam wysyłać (bankowość, dokumentacja wewnętrzna, poczta).
-- Klucz API i pamięć tłumaczeń leżą **lokalnie** w `chrome.storage.local`.
-- Nie ma żadnego serwera pośredniczącego, telemetrii ani analityki.
-- Jedyne dodatkowe połączenie to `frankfurter.dev` po kursy walut (bez danych ze strony).
+- **Zapamiętuje tłumaczenia.** Menu, stopka i powtarzające się zwroty są tłumaczone raz,
+  a potem brane z pamięci. Na kolejnych podstronach tego samego serwisu zwykle **większość
+  tekstu nie jest już nigdzie wysyłana** — przy testach na dokumentacji technicznej
+  na trzeciej podstronie z pamięci pochodziło 8 na 10 fragmentów.
+- Powtórzony tekst na jednej stronie liczy się raz.
 
-Uprawnienia: `activeTab`, `scripting`, `storage` oraz dostęp do stron `http`/`https` —
-niezbędny, bo wtyczka musi czytać i podmieniać tekst na dowolnej stronie, którą wskażesz.
+W **Opcjach**, w sekcji **Statystyki**, na bieżąco widzisz ile fragmentów przyszło z pamięci,
+a ile trzeba było wysłać.
 
-## Ograniczenia
+---
 
-- **Tekst na obrazkach, w `canvas`/WebGL i generowany przez CSS** (`::before`, `::after`)
-  nie istnieje jako węzeł tekstowy — pozostaje nieprzetłumaczony.
-- **Zdanie rozcięte znacznikami** (`Kliknij <a>tutaj</a>, aby…`) tłumaczy się fragmentami;
-  model dostaje sąsiedztwo jako kontekst, ale szyk bywa nieidealny. Scalanie bloków HTML
-  byłoby ryzykowne dla stron reaktywnych i zostało świadomie odpuszczone.
-- **Zmiana modelu unieważnia pamięć** — różne modele dają różne tłumaczenia, więc materiał
-  jest tłumaczony od nowa.
-- **Strony systemowe** (`edge://`, `chrome://`, sklep z rozszerzeniami, podgląd PDF) są poza
-  zasięgiem wtyczek — tam nic się nie wydarzy.
-- Skrypt dodający wpis do listy dozwolonych rozszerzeń dotyczy **tylko Edge**. W Chrome
-  odpowiednikiem jest gałąź `HKLM\SOFTWARE\Policies\Google\Chrome`; prościej użyć
-  instalacji z katalogu rozpakowanego.
+## Co warto wiedzieć o prywatności
 
-## Zawartość repozytorium
+- Tekst tłumaczonych stron **jest wysyłany do OpenAI** — inaczej nie dałoby się go
+  przetłumaczyć. Dlatego **nie używaj wtyczki na stronach z wrażliwymi treściami**:
+  w banku, w poczcie, w dokumentach firmowych czy medycznych.
+- Twój klucz i zapamiętane tłumaczenia zostają **na Twoim komputerze**.
+- Wtyczka nie ma własnego serwera i nie zbiera o Tobie żadnych danych.
 
-```
-tlumacz-pl/                        gotowa wtyczka — to wskazujesz w „Załaduj nierozpakowane"
-tlumacz-pl.crx                     ta sama wtyczka spakowana i podpisana
-Dodanie wtyczki to whitelist.cmd   dopisuje ID wtyczki do zasad Edge (wymaga administratora)
-```
+---
+
+## Czego wtyczka nie przetłumaczy
+
+- **Napisów na obrazkach i w filmach** — to grafika, nie tekst, więc nie da się jej podmienić.
+- **Stron wewnętrznych przeglądarki** (ustawienia, lista rozszerzeń, podgląd plików PDF) —
+  tam żadne rozszerzenie nie ma wstępu.
+- Czasem zdanie porozdzielane linkami wyjdzie trochę sztywno — treść będzie zrozumiała,
+  ale szyk może nie być idealny.
+
+---
+
+## Gdy coś nie działa
+
+**Kliknąłem ikonę i nic się nie dzieje.**
+Sprawdź w **Opcjach**, czy klucz jest wpisany, i kliknij **Testuj połączenie** — komunikat
+powie, co jest nie tak.
+
+**Na ikonie pojawiło się czerwone kółko z krzyżykiem.**
+To znak błędu. Najedź na ikonę myszką — w dymku pojawi się przyczyna. Najczęściej to
+niepoprawny klucz albo brak środków na koncie OpenAI.
+
+**Tłumaczenie idzie wolno.**
+Pierwsze wejście na stronę zawsze trwa najdłużej, bo cały tekst jest nowy. Kolejne podstrony
+tego samego serwisu są wyraźnie szybsze, bo spora część tekstu jest już zapamiętana.
+
+**Chcę zobaczyć oryginał.**
+Kliknij ikonę (wyłączy tłumaczenie dla tego serwisu) i odśwież stronę klawiszem **F5**.
+
+**Chcę zacząć od zera.**
+W **Opcjach** są przyciski **Wyczyść pamięć** (kasuje zapamiętane tłumaczenia)
+i **Wyzeruj statystyki**.
+
+---
+
+## Instalacja z pliku `.crx` (opcjonalnie)
+
+W repozytorium jest też plik `tlumacz-pl.crx` — wtyczka spakowana w jedną paczkę. Ta droga
+wymaga uprawnień administratora i **działa tylko w Edge**, więc jeśli instalacja opisana
+wyżej Ci wystarcza, możesz ten fragment pominąć.
+
+Przeglądarka domyślnie nie ufa rozszerzeniom spoza swojego sklepu — zainstaluje taki plik,
+ale zostawi go wyłączonego. Żeby to zmienić:
+
+1. Uruchom plik **`Dodanie wtyczki to whitelist.cmd`** (podwójne kliknięcie) i potwierdź
+   pytanie systemu Windows o uprawnienia.
+2. Zamknij **wszystkie** okna Edge i uruchom przeglądarkę ponownie.
+3. Przeciągnij plik `tlumacz-pl.crx` na stronę `edge://extensions` — teraz da się włączyć.
+
+Po tej operacji na liście rozszerzeń pojawi się napis „Zarządzane przez organizację",
+a przy ikonie wtyczki żółty znak zapytania. To normalne — oznacza tylko, że wtyczka nie
+pochodzi ze sklepu, i niczego nie ogranicza.
+
+---
 
 ## Licencja
 
-[MIT](LICENSE)
+[MIT](LICENSE) — możesz używać, zmieniać i udostępniać za darmo.
