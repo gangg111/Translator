@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <title>Ustawienia</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #22d3ee;
+      --accent-dark: #0e7490;
+      --error: #f87171;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font: 14px/1.5 "Segoe UI", system-ui, sans-serif;
+    }
+    main { max-width: 520px; margin: 0 auto; padding: 28px 20px 32px; }
+    h1 {
+      margin: 0 0 14px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    label {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    input {
+      display: block;
+      width: 100%;
+      margin-top: 4px;
+      padding: 8px 10px;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--text);
+      font-size: 13px;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--accent-dark);
+      box-shadow: 0 0 0 2px rgba(34, 211, 238, .25);
+    }
+    .hint { color: #64748b; }
+    details { margin: 4px 0 14px; }
+    summary { color: var(--muted); font-size: 12px; cursor: pointer; }
+    .row { display: flex; gap: 8px; align-items: center; }
+    [hidden] { display: none !important; }
+
+    /* ---- wybór modelu klikiem (własna lista, bez systemowego <select>) ---- */
+    .field { margin-bottom: 12px; }
+    .field-label { display: block; color: var(--muted); font-size: 12px; }
+    .picker { position: relative; margin-top: 4px; }
+    .picker-button {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 400;
+      text-align: left;
+      cursor: pointer;
+    }
+    .picker-button:hover { background: #24334a; }
+    .picker-button[aria-expanded="true"],
+    .picker-button:focus-visible {
+      outline: none;
+      border-color: var(--accent-dark);
+      box-shadow: 0 0 0 2px rgba(34, 211, 238, .25);
+    }
+    #model-current { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #model-current .tag { margin-left: 6px; color: #64748b; font-size: 11px; }
+    .chev {
+      flex-shrink: 0;
+      width: 14px; height: 14px;
+      fill: none; stroke: var(--muted); stroke-width: 1.8;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: transform .12s ease;
+    }
+    .picker-button[aria-expanded="true"] .chev { transform: rotate(180deg); }
+    .picker-menu {
+      position: absolute;
+      z-index: 10;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      max-height: 240px;
+      overflow-y: auto;
+      margin: 0;
+      padding: 4px;
+      list-style: none;
+      background: #16233a;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      box-shadow: 0 10px 24px rgba(2, 6, 23, .55);
+    }
+    .picker-menu li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .picker-menu li:hover,
+    .picker-menu li.active { background: #24334a; }
+    .picker-menu li[aria-selected="true"] { color: var(--accent); }
+    .picker-menu li .tag { margin-left: auto; color: #64748b; font-size: 11px; }
+    .picker-menu li.custom { border-top: 1px solid #334155; border-radius: 0 0 4px 4px; margin-top: 4px; padding-top: 9px; }
+    .check {
+      flex-shrink: 0;
+      width: 13px; height: 13px;
+      fill: none; stroke: var(--accent); stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+      visibility: hidden;
+    }
+    .picker-menu li[aria-selected="true"] .check { visibility: visible; }
+    .picker-row { display: flex; align-items: baseline; gap: 8px; margin-top: 6px; }
+    .linkish {
+      padding: 0;
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 400;
+      text-decoration: underline;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .linkish:hover { background: transparent; color: #67e8f9; }
+    .linkish:disabled, .linkish:disabled:hover { background: transparent; color: #64748b; cursor: default; }
+    #models-note { font-size: 11px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #models-note.error { color: var(--error); }
+    #model-custom { margin-top: 6px; }
+    button {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      background: var(--accent-dark);
+      color: #f0fdff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { background: #155e75; }
+    button:disabled,
+    button:disabled:hover {
+      background: #1e293b;
+      color: #64748b;
+      cursor: default;
+    }
+    button.secondary {
+      background: transparent;
+      border: 1px solid var(--accent-dark);
+      color: var(--accent);
+    }
+    button.secondary:hover { background: rgba(34, 211, 238, .08); }
+    #status {
+      margin: 10px 0 0;
+      min-height: 18px;
+      font-size: 12px;
+      color: var(--accent);
+    }
+    #status.error { color: var(--error); }
+    .card {
+      margin-top: 22px;
+      padding: 14px 16px 16px;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      background: rgba(148, 163, 184, .05);
+    }
+    .card h2 { margin: 0 0 4px; font-size: 13px; font-weight: 600; color: var(--text); }
+    #cache-info { margin: 0 0 10px; }
+    #clear-cache, #reset-stats { padding: 5px 12px; font-size: 12px; }
+    #stats-list {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 5px 12px;
+      margin: 10px 0 0;
+      font-size: 12px;
+    }
+    #stats-list dt { color: var(--muted); min-width: 0; }
+    #stats-list dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+    #stats-list dd .sub { margin-left: 6px; color: #64748b; }
+    #stats-list dd.good { color: var(--accent); }
+    #stats-since { margin: 10px 0 10px; }
+    #domains-empty { margin: 10px 0 0; }
+    #domains-list { list-style: none; margin: 8px 0 0; padding: 0; }
+    #domains-list li:last-child { margin-bottom: 0; }
+    #domains-list li {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      padding: 6px 10px; margin-bottom: 6px;
+      background: var(--panel); border: 1px solid #334155; border-radius: 6px; font-size: 13px;
+    }
+    #domains-list li span {
+      flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    #domains-list button {
+      flex-shrink: 0;
+      padding: 3px 10px; font-size: 12px; font-weight: 500;
+      background: transparent; border: 1px solid #475569; color: var(--muted);
+    }
+    #domains-list button:hover { border-color: var(--error); color: var(--error); background: transparent; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Ustawienia</h1>
+    <form id="form">
+      <div class="field">
+        <span class="field-label">Model</span>
+        <div class="picker">
+          <button type="button" id="model-button" class="picker-button"
+                  aria-haspopup="listbox" aria-expanded="false">
+            <span id="model-current">gpt-5.4</span>
+            <svg class="chev" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path d="M4 6.5 8 10.5 12 6.5"/>
+            </svg>
+          </button>
+          <ul id="model-menu" class="picker-menu" role="listbox" hidden></ul>
+        </div>
+        <input id="model-custom" type="text" spellcheck="false" autocomplete="off"
+               placeholder="własny identyfikator, np. gpt-5.4-2026-04-01" hidden>
+        <input type="hidden" id="model">
+        <div class="picker-row">
+          <button type="button" id="refresh-models" class="linkish">Odśwież listę z OpenAI</button>
+          <span id="models-note" class="hint"></span>
+        </div>
+      </div>
+
+      <label>
+        Klucz OpenAI API
+        <input id="apiKey" type="password" autocomplete="off" spellcheck="false"
+               placeholder="sk-...">
+      </label>
+      <div class="row">
+        <button type="submit" id="save" disabled>Zapisz</button>
+        <button type="button" id="test" class="secondary">Testuj połączenie</button>
+      </div>
+      <p id="status" role="status"></p>
+    </form>
+
+    <section id="domains-section" class="card">
+      <h2>Domeny tłumaczone automatycznie</h2>
+      <ul id="domains-list"></ul>
+      <p id="domains-empty" class="hint">Brak — włącz tłumaczenie klikając ikonę na wybranej stronie.</p>
+    </section>
+
+    <section id="stats-section" class="card">
+      <h2>Statystyki</h2>
+      <dl id="stats-list"></dl>
+      <p id="stats-since" class="hint"></p>
+      <button type="button" id="reset-stats" class="secondary">Wyzeruj statystyki</button>
+    </section>
+
+    <section id="cache-section" class="card">
+      <h2>Pamięć tłumaczeń</h2>
+      <p id="cache-info" class="hint"></p>
+      <button type="button" id="clear-cache" class="secondary">Wyczyść pamięć</button>
+    </section>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>

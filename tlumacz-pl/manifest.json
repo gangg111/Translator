@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Tłumacz",
+  "version": "2.9.0",
+  "description": "Tłumaczy widoczny tekst dowolnej strony na polski, podmieniając go w miejscu (bez paneli). Woła OpenAI wprost — bez własnego serwera. Klucz wpisujesz w opcjach.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvwnnc70me4S2bHLrLmuWxlI0AYjNN/CEHosUQhZKW8j41OmmT1ySFqf6s4aWMrqc6lg5tB/iI/j7r8fmGmhv3GhZefxaW3+6kyIuBNj7jrkI1+fkh055wRwDMu/yNiRZaknVAbGwhQaoyTL90gfGfGbki8rl+9CbfhR+Q7UjmcaZZRIuXCj19DYiCGnOb4rGRDqX1sdRl8522WhVU48ArwPhu7d7l+AELidkR0nTmv1grnbql94iXEn6+dSFvpt/rcD6CvWaAvA57uWNnjRv3/Y7RW6ll89PHGfpZfF9wD2q9z5n3wDC+W8UX410+lGn44smuVijbe48FRfl68AgOQIDAQAB",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Przetłumacz stronę na polski",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
