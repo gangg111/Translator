@@ -1,6 +1,6 @@
-# Tłumacz - cała domena po polsku, jednym kliknięciem
+# Tłumacz — cała strona po polsku, jednym kliknięciem
 
-Wchodzisz na zagraniczną stronę, klikasz ikonę i strona jest po polsku. Wygląda tak samo
+Wchodzisz na zagraniczną stronę, klikasz ikonę — i strona jest po polsku. Wygląda tak samo
 jak wcześniej, tylko tekst jest przetłumaczony. Żadnych okienek obok, żadnego kopiowania
 i wklejania do tłumacza.
 
@@ -11,13 +11,13 @@ Działa w przeglądarkach **Microsoft Edge** i **Google Chrome**.
 
 ---
 
-## Zanim zaczniesz potrzebujesz klucza OpenAI
+## Zanim zaczniesz — potrzebujesz klucza OpenAI
 
 Tłumaczy sztuczna inteligencja od OpenAI (ta sama firma, co ChatGPT). Żeby wtyczka mogła
 z niej korzystać, potrzebuje Twojego **klucza** — to taki długi ciąg znaków, który łączy
 wtyczkę z Twoim kontem OpenAI.
 
-**Można tłumaczyć za darmo** - OpenAI codziennie przydziela darmową pulę tłumaczeń, jeśli
+**Można tłumaczyć za darmo** — OpenAI codziennie przydziela darmową pulę tłumaczeń, jeśli
 w ustawieniach konta zgodzisz się na udostępnianie danych (patrz sekcja
 [„Ile to kosztuje"](#ile-to-kosztuje) niżej). Jak zdobyć klucz:
 
@@ -35,25 +35,54 @@ w ustawieniach konta zgodzisz się na udostępnianie danych (patrz sekcja
 
 ## Instalacja
 
-1. Na górze tej strony kliknij zielony przycisk **Code**, a potem **Download ZIP**.
-2. Znajdź pobrany plik i rozpakuj go (prawy klik → **Wyodrębnij wszystkie**).
-3. Otwórz przeglądarkę i wpisz w pasku adresu:
-   - Edge: `edge://extensions`
-   - Chrome: `chrome://extensions`
-4. W lewym dolnym rogu (Chrome: w prawym górnym) przestaw suwak **Tryb programisty** na
-   włączony.
-5. Kliknij **Załaduj nierozpakowane**, wejdź do rozpakowanego folderu i zaznacz folder
+Najpierw pobierz pliki: na górze tej strony kliknij zielony przycisk **Code**, potem
+**Download ZIP**, znajdź pobrany plik i rozpakuj go (prawy klik → **Wyodrębnij wszystkie**).
+
+Dalej masz dwie drogi — wybierz jedną.
+
+### Sposób A — plik `.crx` (paczka, tylko Edge)
+
+Instalujesz gotową paczkę `tlumacz-pl.crx`. Edge domyślnie nie ufa wtyczkom spoza swojego
+sklepu, więc najpierw trzeba mu jednorazowo na nią pozwolić — robi to dołączony plik.
+
+1. W rozpakowanym folderze uruchom **`Dodanie wtyczki to whitelist.cmd`** (podwójne
+   kliknięcie) i potwierdź pytanie systemu Windows o uprawnienia. To jednorazowo pozwala
+   Edge zainstalować tę wtyczkę.
+2. Zamknij **wszystkie** okna Edge i uruchom przeglądarkę ponownie.
+3. Wpisz w pasku adresu `edge://extensions` i włącz **Tryb programisty** (suwak w lewym
+   dolnym rogu).
+4. **Przeciągnij plik `tlumacz-pl.crx`** z folderu prosto na stronę `edge://extensions`
+   i puść. Potwierdź „Dodaj rozszerzenie".
+
+> Bez kroku 1 wtyczka też się zainstaluje, ale Edge zostawi ją **wyłączoną** z napisem
+> „nie pochodzi ze znanego źródła" i nie da się jej włączyć.
+
+Po instalacji na liście rozszerzeń zobaczysz „Zarządzane przez organizację", a przy ikonie
+żółty znak zapytania — to normalne, oznacza tylko „wtyczka spoza sklepu" i niczego nie
+ogranicza. Chcesz cofnąć pozwolenie? Uruchom w oknie **Wiersz polecenia (Administrator)**:
+`reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge\ExtensionInstallAllowlist" /f`
+
+### Sposób B — folder (bez uprawnień administratora, Edge i Chrome)
+
+Nie chcesz ruszać ustawień systemu ani używasz Chrome? Wskaż wtyczkę jako zwykły folder.
+
+1. Wpisz w pasku adresu `edge://extensions` (w Chrome: `chrome://extensions`).
+2. Włącz **Tryb programisty** (Edge: suwak w lewym dolnym rogu, Chrome: w prawym górnym).
+3. Kliknij **Załaduj nierozpakowane**, wejdź do rozpakowanego folderu i zaznacz folder
    **`tlumacz-pl`**, po czym potwierdź.
 
-Gotowe — na liście pojawi się „Tłumacz". Kliknij ikonę układanki obok paska adresu
-i przypnij go pinezką, żeby mieć zawsze pod ręką.
-
-> Przy starcie przeglądarki może wyskakiwać pasek z ostrzeżeniem o trybie programisty.
-> Można go zamknąć — wtyczka działa normalnie.
+> Przy tej metodzie przeglądarka przy starcie potrafi pokazywać pasek z ostrzeżeniem o
+> trybie programisty — można go zamknąć, wtyczka działa normalnie.
 
 ---
 
-## Pierwsze uruchomienie - wklej klucz
+**Po obu sposobach** na liście pojawi się „Tłumacz". Kliknij ikonę układanki obok paska
+adresu i przypnij ją pinezką, żeby mieć zawsze pod ręką. To ta sama wtyczka niezależnie od
+wybranej drogi — ustawienia i pamięć się nie różnią.
+
+---
+
+## Pierwsze uruchomienie — wklej klucz
 
 1. Kliknij ikonę wtyczki **prawym** przyciskiem myszy i wybierz **Opcje**.
 2. W polu **Klucz OpenAI API** wklej skopiowany wcześniej klucz.
@@ -97,7 +126,7 @@ i jenach przelicza na złotówki po aktualnym kursie.
 
 ## Ile to kosztuje
 
-### Za darmo - darmowa pula dzienna
+### Za darmo — darmowa pula dzienna
 
 OpenAI codziennie daje **darmową pulę tłumaczeń** w zamian za zgodę na udostępnianie danych.
 Dla zwykłego przeglądania ta pula jest bardzo duża (idzie w setki tysięcy, a na starszych
@@ -181,26 +210,6 @@ Kliknij ikonę (wyłączy tłumaczenie dla tego serwisu) i odśwież stronę kla
 **Chcę zacząć od zera.**
 W **Opcjach** są przyciski **Wyczyść pamięć** (kasuje zapamiętane tłumaczenia)
 i **Wyzeruj statystyki**.
-
----
-
-## Instalacja z pliku `.crx` (opcjonalnie)
-
-W repozytorium jest też plik `tlumacz-pl.crx` — wtyczka spakowana w jedną paczkę. Ta droga
-wymaga uprawnień administratora i **działa tylko w Edge**, więc jeśli instalacja opisana
-wyżej Ci wystarcza, możesz ten fragment pominąć.
-
-Przeglądarka domyślnie nie ufa rozszerzeniom spoza swojego sklepu — zainstaluje taki plik,
-ale zostawi go wyłączonego. Żeby to zmienić:
-
-1. Uruchom plik **`Dodanie wtyczki to whitelist.cmd`** (podwójne kliknięcie) i potwierdź
-   pytanie systemu Windows o uprawnienia.
-2. Zamknij **wszystkie** okna Edge i uruchom przeglądarkę ponownie.
-3. Przeciągnij plik `tlumacz-pl.crx` na stronę `edge://extensions` — teraz da się włączyć.
-
-Po tej operacji na liście rozszerzeń pojawi się napis „Zarządzane przez organizację",
-a przy ikonie wtyczki żółty znak zapytania. To normalne — oznacza tylko, że wtyczka nie
-pochodzi ze sklepu, i niczego nie ogranicza.
 
 ---
 
